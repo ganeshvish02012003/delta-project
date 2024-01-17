@@ -1,0 +1,163 @@
+<% layout("layouts/boilerplate") %>
+<style>
+    #filters{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .filter{
+        text-align: center;
+        margin-right: 2rem;
+        margin-top: 2rem;
+        opacity: 0.7;
+    }
+    .filter:hover{
+        opacity: 1;
+        cursor: pointer;
+    }
+    .filter p{
+        font-size: 0.8rem;
+    }
+
+    .tex-info{
+        display: none;
+    }
+    .tex-toggle{
+        border: 1px solid rgba(0, 0, 0, 0.502);
+        border-radius: 1rem;
+        height: 3rem;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+    }
+    .withOutGst{
+        display: inline;
+    }
+
+</style>
+<body>
+    
+    <div id="filters">
+        <div class="filter">
+            <div><i class="fa-solid fa-fire"></i></div>
+            <p>Trending</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-bed"></i></div>
+            <p>Room</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-mountain-city"></i></div>
+            <p>Iconic Citys</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-mountain"></i></div>
+            <p>Mountains</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-brands fa-fort-awesome"></i></div>
+            <p>Castles</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-person-swimming"></i></div>
+            <p>Amazing Pools</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-campground"></i></div>
+            <p>Camping</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-cow"></i></div>
+            <p>Farms</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-regular fa-snowflake"></i></div>
+            <p>Arcitc</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-sharp fa-solid fa-igloo"></i></div>
+            <p>Domes</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-sailboat"></i></div>
+            <p>Boats</p>
+        </div>
+
+        <div class="tex-toggle">
+            <div class="form-check-reverse form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                 <label class="form-check-label" for="flexSwitchCheckDefault">Display <!--Total after--> texes</label> 
+              </div>
+        </div>
+    </div>
+
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+        <% for(let listing of allListings){ %>
+            <a href="/listings/<%= listing._id %>" class="listing-link">
+                <div class="card listing-card" >
+                    <img src="<%=listing.image.url%>" class="card-img-top" alt="listing_image" style="height: 20rem;">
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                        <p class="card-text"> 
+                            <b> <%=listing.title%></b> <br>
+
+                            <% let Price = listing.price %>
+                            <% let GST =Price+ Price*0.18%>
+                            <span class="withOutGst">  
+                                &#8377; <%= listing.price.toLocaleString("en-IN") %> / night   
+                            </span>   
+                            <span class="tex-info" >
+                                &#8377; <%= GST.toLocaleString("en-IN") %> / night
+                                &nbsp; &nbsp; &nbsp; &nbsp; <i><small>with 18% GST</small></i> 
+                            </span> 
+                        </p>
+                    </div>
+                </div> 
+
+            </a>
+        <% } %>
+    </div>
+
+    <script>
+        let taxSwicth = document.getElementById("flexSwitchCheckDefault")
+        taxSwicth.addEventListener("click", ()=>{
+            let texInfo = document.getElementsByClassName("tex-info");
+            for(info of texInfo){
+                if(info.style.display != "inline"){
+                info.style.display = "inline"
+                }else{
+                    info.style.display = "none"
+                }
+            }
+        })
+
+        taxSwicth.addEventListener("click", ()=>{
+            let withOutGst = document.getElementsByClassName("withOutGst");
+            for(gst of withOutGst){
+                if(gst.style.display != "none"){
+                    gst.style.display = "none"
+                }else{
+                    gst.style.display = "inline"
+                }
+            }
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+
+   
+
+</body>
