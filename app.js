@@ -61,7 +61,7 @@ store.on("error", ()=>{
 
 const sessionOptions = {
   store,
-  secret: process.env.SECRET,
+  secret: process.env.SECRET, 
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -69,7 +69,7 @@ const sessionOptions = {
     maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   },
-};
+}; 
 
 // app.get("/", (req, res) => {
 //   res.send("hi i am root");
